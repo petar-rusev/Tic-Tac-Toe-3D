@@ -21,17 +21,13 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Check(constraints = "first_player_piece_code or first_player_piece_code = 'X' " +
-"and game_type = 'COMPUTER' " +
-"and game_status = 'IN_PROGRESS' or game_status = 'FIRST_PLAYER_WON' or game_status = 'SECOND_PLAYER_WON'"+
-"or game_status = 'TIE' or game_status = 'WAITS_FOR_PLAYER'")
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

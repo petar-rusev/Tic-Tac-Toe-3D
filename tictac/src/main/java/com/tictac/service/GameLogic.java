@@ -12,6 +12,7 @@ import static java.util.Arrays.asList;
 /**
  * Created by petar on 9/27/2016.
  */
+
 public class GameLogic {
     private final Game game;
 
@@ -19,34 +20,116 @@ public class GameLogic {
         this.game = game;
     }
 
-    static boolean isWinner(List<Position> positions){
-        return getWinningPositions().stream().anyMatch(positions::containsAll);
+    public static boolean checkVertical3DWin(List<Position>positions){
+        int counter=0;
+
+        for(int i= 0 ;i < positions.size();i++){
+            Position tempOne = positions.get(i);
+            for(int j = i+1;j < positions.size();j++){
+                if(counter == 3){
+                    break;
+                }
+                if(tempOne.getBoardX() == positions.get(j).getBoardX() ||
+                        tempOne.getBoardY() == positions.get(j).getBoardY() &&
+                                tempOne.getBoardZ() != positions.get(j).getBoardZ()){
+                    counter++;
+                }
+            }
+        }
+
+        return counter == 3;
     }
 
-    static List<List<Position>> getWinningPositions(){
-        List<List<Position>> winningPositions = new ArrayList<>();
+    public static boolean checkVerticalOneLayerWin(List<Position>positions){
+        int counter = 0;
 
-        winningPositions.add(asList(new Position(1,1,1), new Position(1,2,1), new Position(1,3,1)));
-        winningPositions.add(asList(new Position(2,1,1), new Position(2,2,1), new Position(2,3,1)));
-        winningPositions.add(asList(new Position(3,1,1), new Position(3,2,1), new Position(3,3,1)));
+        for(int i=0;i < positions.size();i++){
+            Position tempOne = positions.get(i);
+            for(int j = i+1;j < positions.size();j++){
+                if(counter == 3){
+                    break;
+                }
+                if(tempOne.getBoardZ() == positions.get(j).getBoardZ() &&
+                        tempOne.getBoardY() == positions.get(j).getBoardY()){
+                    counter++;
+                }
+            }
+        }
 
-        winningPositions.add(asList(new Position(1,1,2), new Position(1,2,2), new Position(1,3,2)));
-        winningPositions.add(asList(new Position(2,1,2), new Position(2,2,2), new Position(2,3,2)));
-        winningPositions.add(asList(new Position(3,1,2), new Position(3,2,2), new Position(3,3,2)));
+        return counter == 3;
+    }
 
-        winningPositions.add(asList(new Position(1,1,3), new Position(1,2,3), new Position(1,3,3)));
-        winningPositions.add(asList(new Position(2,1,3), new Position(2,2,3), new Position(2,3,3)));
-        winningPositions.add(asList(new Position(3,1,3), new Position(3,2,3), new Position(3,3,3)));
+    public static boolean checkHorizontalOneLayerWin(List<Position>positions){
+        int counter = 0;
 
-        return winningPositions;
+        for(int i=0;i < positions.size();i++){
+            Position tempOne = positions.get(i);
+            for(int j = i+1;j < positions.size();j++){
+                if(counter == 3){
+                    break;
+                }
+                if(tempOne.getBoardZ() == positions.get(j).getBoardZ() &&
+                        tempOne.getBoardX() == positions.get(j).getBoardX()){
+                    counter++;
+                }
+            }
+        }
+
+        return counter == 3;
+    }
+
+    public static boolean checkDiagonalsOneLayerWin(List<Position>positions){
+
+        int counterLeftTopToRightBottom = 0;
+        int counterLeftBottomToRightTop = 0;
+
+        //Check leftTop to rightBottom diagonal
+        for(int i=0;i<positions.size();i++){
+
+            if(positions.get(i).getBoardX() == 3 &&
+                positions.get(i).getBoardY() == 1 ||
+                    positions.get(i).getBoardX() == 2 &&
+                        positions.get(i).getBoardY() == 2 ||
+                            positions.get(i).getBoardX() == 1 &&
+                                    positions.get(i).getBoardY() == 3
+                ){
+                if(counterLeftTopToRightBottom == 3){
+                     break;
+                }
+                counterLeftTopToRightBottom++;
+            }
+        }
+
+        //Check leftBottom to rightTop diagonal
+        for(int i=0;i<positions.size();i++){
+            if(positions.get(i).getBoardX() == 1 &&
+                    positions.get(i).getBoardY() == 1 ||
+                    positions.get(i).getBoardX() == 2 &&
+                            positions.get(i).getBoardY() == 2 ||
+                    positions.get(i).getBoardX() == 3 &&
+                            positions.get(i).getBoardY() == 3
+                    ){
+                if(counterLeftBottomToRightTop == 3){
+                    break;
+                }
+                counterLeftBottomToRightTop++;
+
+            }
+        }
+
+        return counterLeftBottomToRightTop == 3 || counterLeftTopToRightBottom == 3;
+    }
+
+    static boolean isWinner(List<Position> positions){
+        return checkVertical3DWin(positions);
     }
 
     static List<Position> getAllPositions(){
         List<Position> positions = new ArrayList<>();
 
-        for(int row = 1; row <= 3; row++){
-            for(int col = 1; col <= 3; col++){
-                for(int level = 1; level <= 3; level++){
+        for(int level = 1; level <= 3; level++){
+            for(int row = 1; row <= 3; row++){
+                for(int col = 1; col <= 3; col++){
                     positions.add(new Position(row,col,level));
                 }
             }
