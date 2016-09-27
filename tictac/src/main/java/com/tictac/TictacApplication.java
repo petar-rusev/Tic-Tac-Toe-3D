@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories("com.leagueofsummoners.persistence.interfaces")
+@ComponentScan(value = "com.tictac.repository")
 public class TictacApplication {
 
 	public static void main(String[] args) {
