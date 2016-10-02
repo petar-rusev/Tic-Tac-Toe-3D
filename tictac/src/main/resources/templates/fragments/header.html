@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+</head>
+<body>
+	<div class="divPanel notop nobottom" th:fragment="header">
+		<div class="row-fluid">
+			<div class="span12">
+				<div id="divMenuRight" class="pull-right">
+					<div class="navbar">
+						<div class="nav-collapse collapse">
+							<ul class="nav nav-pills ddmenu">
+								<li class="active"><a href="/">Home</a></li>
+								
+								<li sec:authorize="isAuthenticated()"><a href="/">Player Panel</a></li>
+								<li sec:authorize="isAuthenticated()"><a class="logOutBtn">Log out</a></li>
+								
+								<li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

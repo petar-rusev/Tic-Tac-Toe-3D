@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/main">
+<head>
+<title>Registration</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="breadcrumbs">
+			<a href="/">Home</a> / <a href="/login">Log in</a> / <span>Registration</span>
+		</div>
+		<div class="row-fluid">
+			<div class="span4"></div>
+			<div class="span4">
+				<h1>Registration</h1>
+				<hr />
+
+				<!--/*@thymesVar id="player" type=""*/-->
+
+				<form th:action="@{/player/registration}" th:object="${player}"
+					method="post" enctype="utf8">
+					<fieldset>
+							<input type="text" th:field="*{userName}"
+							class="input-block-level" placeholder="Username" /> <input
+							type="password" th:field="*{password}" class="input-block-level"
+							placeholder="Password" /> <input type="password"
+							th:field="*{confirmPassword}" class="input-block-level"
+							placeholder="Confirm password" /> <input type="email"
+							th:field="*{email}" class="input-block-level" placeholder="Email" />
+
+						<div class="actions">
+							<input type="submit" value="Register"
+								class="btn btn-info pull-right" />
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="span4"></div>
+		</div>
+	</div>
+</body>
+</html>

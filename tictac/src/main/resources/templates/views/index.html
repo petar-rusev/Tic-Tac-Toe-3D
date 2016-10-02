@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game</title>
+    <link href="/styles/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/styles/bootstrap/bootstrap-responsive.min.css"  rel="stylesheet" type="text/css" />
+    <link href="/styles/bootstrap/app/application.css" rel="stylesheet" type="text/css" />
+
+    <link href="http://fonts.googleapis.com/css?family=Syncopate"
+          rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Abel"
+          rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro"
+          rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans"
+          rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Pontano+Sans"
+          rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Oxygen"
+          rel="stylesheet" type="text/css" />
+
+</head>
+<body ng-app="ticTacToe">
+<div class="home-section">
+
+    <ul class="menu-list">
+
+        <li><a href="#/player-panel">Users</a></li>
+
+    </ul>
+
+</div>
+<div ng-view="name">
+</div>
+<script type="text/javascript" src="/scripts/libraries/jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/libraries/bootstrap.min.js"></script>
+<!-- ANGULAR -->
+
+<script type="text/javascript" src="/scripts/libraries/angular.min.js"></script>
+<script type="text/javascript" src="/scripts/libraries/angular-route.min.js"></script>
+
+<script type="text/javascript" src="/scripts/angular/application.js"></script>
+<script type="text/javascript" src="/scripts/angular/controllers/GameModule.js"></script>
+</body>
+</html>
