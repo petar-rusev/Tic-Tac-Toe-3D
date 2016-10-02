@@ -45,4 +45,5 @@ public class Move {
 
     @Column(name = "created",nullable = false)
     private Date created;
+
 }

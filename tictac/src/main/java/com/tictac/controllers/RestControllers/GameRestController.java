@@ -8,6 +8,7 @@ import com.tictac.domain.Game;
 import com.tictac.domain.User;
 import com.tictac.enums.GameStatus;
 import com.tictac.services.GameService;
+import com.tictac.services.MoveService;
 import com.tictac.services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +24,9 @@ public class GameRestController {
     GameService gameService;
 
     @Autowired
+    MoveService moveService;
+
+    @Autowired
     PlayerService playerService;
 
     @Autowired
@@ -32,13 +36,6 @@ public class GameRestController {
     public Game createNewGame(@RequestBody GameDTO gameDTO){
         Game game = gameService.createNewGame(playerService.getLoggedUser(),gameDTO);
         httpSession.setAttribute("gameId",game.getId());
-
-        return game;
-    }
-
-    @RequestMapping(value = "/join", method = RequestMethod.POST)
-    public Game joinGame(@RequestBody GameDTO gameDTO){
-        Game game = gameService.joinGame(playerService.getLoggedUser(),gameDTO);
         return game;
     }
 

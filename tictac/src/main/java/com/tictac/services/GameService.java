@@ -2,10 +2,13 @@ package com.tictac.services;
 
 import com.tictac.DTO.GameDTO;
 import com.tictac.domain.Game;
+import com.tictac.domain.Move;
+import com.tictac.domain.Position;
 import com.tictac.domain.User;
 import com.tictac.enums.GameStatus;
 import com.tictac.enums.GameType;
 import com.tictac.repository.GameRepository;
+import com.tictac.repository.MoveRepository;
 import com.tictac.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +25,16 @@ import java.util.stream.Collectors;
 @Transactional
 public class GameService {
     private final GameRepository gameRepository;
-
     @Autowired
     public GameService(GameRepository gameRepository){
         this.gameRepository = gameRepository;
+
     }
 
     public Game createNewGame(User player, GameDTO gameDTO){
         Game game  = new Game();
         game.setFirstPlayer(player);
-        game.setGameType(gameDTO.getGameType());
+        game.setGameType(GameType.COMPUTER.toString());
         game.setFirstPlayerPieceCode(gameDTO.getPiece());
         game.setGameStatus(GameStatus.IN_PROGRESS.toString());
         game.setCreated(new Date());
@@ -45,16 +48,6 @@ public class GameService {
         g.setGameStatus(gameStatus);
 
         return g;
-    }
-
-    public Game joinGame(User player, GameDTO gameDTO){
-        Game game  = getGame((long)gameDTO.getId());
-        game.setSecondPlayer(player);
-        gameRepository.save(game);
-
-        updateGameStatus(game, GameStatus.IN_PROGRESS.toString());
-
-        return game;
     }
 
     public List<Game> getPlayerGames(User player){
