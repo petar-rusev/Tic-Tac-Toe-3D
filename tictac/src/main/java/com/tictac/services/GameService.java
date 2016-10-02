@@ -33,7 +33,7 @@ public class GameService {
         game.setFirstPlayer(player);
         game.setGameType(gameDTO.getGameType());
         game.setFirstPlayerPieceCode(gameDTO.getPiece());
-        game.setGameStatus(gameDTO.getGameType().equalsIgnoreCase(GameType.COMPUTER.toString()) ? GameStatus.IN_PROGRESS.toString() : GameStatus.WAITS_FOR_PLAYER.toString());
+        game.setGameStatus(GameStatus.IN_PROGRESS.toString());
         game.setCreated(new Date());
         gameRepository.save(game);
 
@@ -45,12 +45,6 @@ public class GameService {
         g.setGameStatus(gameStatus);
 
         return g;
-    }
-
-    public List<Game> getGamesToJoin(User player){
-        return gameRepository.findByGameTypeAndGameStatus(GameType.COMPETITION.toString(),
-                GameStatus.WAITS_FOR_PLAYER.toString()).stream().filter(game -> game.getFirstPlayer() != player).collect(Collectors.toList());
-
     }
 
     public Game joinGame(User player, GameDTO gameDTO){

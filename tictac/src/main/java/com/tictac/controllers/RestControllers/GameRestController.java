@@ -36,11 +36,6 @@ public class GameRestController {
         return game;
     }
 
-    @RequestMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Game> getGameToJson(){
-        return gameService.getGamesToJoin(playerService.getLoggedUser());
-    }
-
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     public Game joinGame(@RequestBody GameDTO gameDTO){
         Game game = gameService.joinGame(playerService.getLoggedUser(),gameDTO);

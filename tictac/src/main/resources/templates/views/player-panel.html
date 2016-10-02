@@ -11,59 +11,25 @@
 
             <h2 class="lead">New game</h2>
             <form name="createNewBoard" class="form-horizontal" novalidate ng-submit="createNewGame()">
-                <div class="form-group">
-                    <label for="gameType" class="col-md-2 control-label">Game type:</label>
-                    <div class="col-md-8">
-                        <select required class="form-control" name="gameType" id="gameType" ng-model = "newGameData.gameType">
-                            <option ng-repeat="option in newGameOptions.availableGameTypes" value="{{option.name}}">{{option.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
+               <div class="form-group">
                     <label for="piece" class="col-md-2 control-label">Play as:</label>
-                    <div class="col-md-8">
+                    <div style="margin-bottom: 30px" class="col-md-8">
                         <select required class="form-control" name="piece" id="piece" ng-model="newGameData.piece">
                             <option ng-repeat="option in newGameOptions.availablePieces" value="{{option.name}}">{{option.name}}</option>
                         </select>
                     </div>
+                    <span class="piece-validation-message hidden">
+                        Please select one of the piece types
+                    </span>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-6" style="padding-bottom:50px">
-                        <button type="submit" class="btn btn-md btn-primary" ng-disabled="createNewGame.$invalid">
+                        <button type="submit" class="btn btn-md btn-primary createGame" ng-disabled="createNewGame.$invalid">
                             <span class="glyphicon glyphicon-plus">New Game</span>
                         </button>
                     </div>
                 </div>
             </form>
-        </div>
-
-        <!--Join existing game -->
-        <div class="col-md-6" ng-controller="gamesToJoinController">
-            <table class="table table-hover table-striped table-condensed" ng-show="gamesToJoin.length">
-                <h2 class="lead">Join existing game</h2>
-                <thead>
-                    <td>Started player</td>
-                    <td>Game status</td>
-                    <td>Created</td>
-                    <td></td>
-                </thead>
-                <tbody>
-                <tr ng-repeat="game in gamesToJoin">
-                    <td>{{game.firstPlayer.userName}}</td>
-                    <td>{{game.gameStatus}}</td>
-                    <td>{{game.created | date:'MM-dd-yyyy HH:mm:ss'}}</td>
-                    <td>
-                        <button type="submit" class="btn btn-sm" ng-click="joinGame(game.id)">
-                            <span class="glyphicon glyphicon-plus"></span>Join
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <div ng-show="!gamesToJoin.length">
-                No games to join.
-            </div>
         </div>
 
         <div class="col-md-6" ng-controller="playerGamesController">

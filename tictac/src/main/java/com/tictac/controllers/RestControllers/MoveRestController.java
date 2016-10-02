@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/move")
-public class MoveController {
+public class MoveRestController {
 
     @Autowired
     private MoveService moveService;

@@ -58,9 +58,8 @@ public class MoveService {
    }
 
    public Move autoCreateMove(Game game){
-       minimax(1,game);
-
-       return computerGameMove;
+       minimax(3,game);
+      return computerGameMove;
    }
 
    public void resetMove(Move move){
@@ -76,9 +75,6 @@ public class MoveService {
        }
        else if(isBoardIsFull(getTakenMovePositionsInGame(game))){
            return GameStatus.TIE.toString();
-       }
-       else if(game.getGameType() == GameType.COMPETITION.toString() && game.getSecondPlayer() == null){
-           return GameStatus.WAITS_FOR_PLAYER.toString();
        }
        else{
            return GameStatus.IN_PROGRESS.toString();
@@ -265,7 +261,7 @@ public class MoveService {
                 if(currentScore >= 0){
                     if(depth == 0){
                         computerGameMove = createdMove;
-                        resetMove(createdMove);
+                        break;
                     }
                 }else if(currentScore == 1){
                     resetMove(createdMove);
@@ -274,13 +270,12 @@ public class MoveService {
                 if(i == gameMovesAvailable.size() - 1 && max > 0){
                     if(depth == 0){
                         computerGameMove = createdMove;
-                        resetMove(createdMove);
+                        break;
                     }
                 }
             }else{
-
                 createdMove = createMove(game,game.getFirstPlayer(),moveDTO);
-                int currentScore = minimax(depth+1,game);
+                int currentScore  = minimax(depth+1,game);
                 min = Math.min(currentScore,min);
                 if(min == -1){
                     resetMove(createdMove);
@@ -289,6 +284,7 @@ public class MoveService {
             }
 
         }
+
         return (isPlayerTurn(game,game.getFirstPlayer(),game.getSecondPlayer())) ? max : min;
     }
 

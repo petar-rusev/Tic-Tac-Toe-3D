@@ -1,51 +1,46 @@
 <div class="row">
 
-    <div class="col-md-6">
-        <div class="gameon">
-
-            <div class="tableContainer">
-                <div  style = "margin:30px; display:inline-block;"  class="gametable" id="board">
-                    <div style="margin:30px">
-                        <div ng-repeat="row in rowsLayerOne" class="tablerow">
-                            <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
-                                <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
-                            </div>
-                        </div>
+    <div style="display:inline-block" class="col-md-6">
+        <div  style = "margin:30px; display:inline-block;"  class="gametable" id="board">
+            <div style="margin:30px">
+                <div ng-repeat="row in rowsLayerOne" class="tablerow">
+                    <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
+                        <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
                     </div>
-                    <div style="margin:30px">
-                        <div ng-repeat="row in rowsLayerTwo" class="tablerow">
-                            <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
-                                <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div style="margin:30px">
+                <div ng-repeat="row in rowsLayerTwo" class="tablerow">
+                    <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
+                        <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
                     </div>
-                    <div style="margin:30px">
-                        <div ng-repeat="row in rowsLayerThree" class="tablerow">
-                            <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
-                                <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div style="margin:30px">
+                <div ng-repeat="row in rowsLayerThree" class="tablerow">
+                    <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
+                        <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div style="display:inline-block;margin-left:350px" class="col-md-6">
         <div>
             <table class="table table-hover table-stripped table-condensed" ng-show="movesInGame.length">
                 <h2 class="lead">History of moves in the game</h2>
                 <thead>
-                    <td>Player</td>
-                    <td>Position</td>
-                    <td>Move created</td>
-               </thead>
+                <td>Player</td>
+                <td>Position</td>
+                <td>Move created</td>
+                </thead>
                 <tbody>
-                    <tr ng-repeat="move in movesInGame">
-                        <td>{{move.userName}}</td>
-                        <td>Board row: {{move.boardX}}, Board column: {{move.boardY}}, Board layer: {{move.boardZ}}</td>
-                        <td>{{move.created | date:'MM-dd-yyyy HH:mm:ss'}}</td>
-                    </tr>
+                <tr ng-repeat="move in movesInGame">
+                    <td>{{move.userName}}</td>
+                    <td>Board row: {{move.boardX}}, Board column: {{move.boardY}}, Board layer: {{move.boardZ}}</td>
+                    <td>{{move.created | date:'MM-dd-yyyy HH:mm:ss'}}</td>
+                </tr>
                 </tbody>
             </table>
             <div ng-show="!movesInGame.length">

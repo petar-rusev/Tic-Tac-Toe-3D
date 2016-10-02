@@ -90,7 +90,7 @@
 }
 
 .optionsContainer {
-	padding: 20px 80px;
+    padding: 20px 80px;
     font-family: Tahoma;
 }
 
@@ -104,7 +104,7 @@
 }
 
 /* UNIVERSAL STYLES */
- .center {
+.center {
     margin-right: auto;
     margin-left: auto;
 }
@@ -114,7 +114,7 @@
     text-decoration: underline;
 }
 /* ELEMENT STYLES */
- h1, h4 {
+h1, h4 {
     text-align: center;
     font-family: sans-serif;
     color: #666666;
@@ -138,15 +138,15 @@ p {
     padding: 5px 15px 5px 15px;
 }
 /* BOARD STYLES */
- #board-outer {
-    height: 350px;
-    width: 350px;
+#board-outer {
+    height: 200px;
+    width: 200px;
     background-color:none;
     overflow: hidden;
 }
 #board {
-    width: 354px;
-    height: 354px;
+    width: 250px;
+    height: 250px;
     background-color:none;
     border-spacing:0;
     margin-left: -2px;
@@ -159,4 +159,10 @@ p {
     font: 90px sans-serif;
     text-align: center;
     vertical-align: center;
+}
+.gameType-validation-message{
+    color:#ff0000;
+}
+.piece-validation-message{
+    color:#ff0000;
 }
