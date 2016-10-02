@@ -1,6 +1,6 @@
 package com.tictac.security;
 
-import com.tictac.domain.Player;
+import com.tictac.domain.User;
 import com.google.common.collect.ImmutableSet;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -9,9 +9,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
  */
 public class ContextUser extends org.springframework.security.core.userdetails.User {
 
-    private final Player player;
+    private final User player;
 
-    public ContextUser(Player player) {
+    public ContextUser(User player) {
         super(player.getUserName(),
                 player.getPassword(),
                 true,
@@ -24,7 +24,7 @@ public class ContextUser extends org.springframework.security.core.userdetails.U
 
     }
 
-    public Player getPlayer() {
+    public User getPlayer() {
         return  player;
     }
 }

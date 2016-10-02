@@ -23,7 +23,7 @@ public class MoveDTO {
     private int boardZ;
     private Date created;
     private String userName;
-    private GameStatus gameStatus;
-    private Piece piece;
+    private String gameStatus;
+    private String piece;
 
 }

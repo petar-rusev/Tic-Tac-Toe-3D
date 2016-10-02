@@ -4,6 +4,7 @@ package com.tictac.domain;
  * Created by petar on 9/26/2016.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Move {
 
     @Id
@@ -40,7 +41,7 @@ public class Move {
 
     @ManyToOne
     @JoinColumn(name = "player_id", nullable = true)
-    private Player player;
+    private User player;
 
     @Column(name = "created",nullable = false)
     private Date created;

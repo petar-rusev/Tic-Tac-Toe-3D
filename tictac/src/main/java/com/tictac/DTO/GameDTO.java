@@ -1,6 +1,5 @@
 package com.tictac.DTO;
 
-import com.tictac.domain.Player;
 import com.tictac.enums.GameType;
 import com.tictac.enums.Piece;
 import lombok.AllArgsConstructor;
@@ -17,6 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GameDTO {
     private int id;
-    private GameType gameType;
-    private Piece piece;
+    private String gameType;
+    private String piece;
 }

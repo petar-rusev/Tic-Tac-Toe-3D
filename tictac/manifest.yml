@@ -1,0 +1,8 @@
+---
+applications:
+- name: tic-tac-toe-3D
+  memory: 1024M
+  host: tic-tac-toe-3D
+  path: target/tictac-0.0.1-SNAPSHOT.war
+  services:
+  - postgres-service

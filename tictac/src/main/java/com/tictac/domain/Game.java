@@ -4,6 +4,7 @@ package com.tictac.domain;
  * Created by petar on 9/26/2016.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tictac.enums.GameStatus;
 import com.tictac.enums.GameType;
 import com.tictac.enums.Piece;
@@ -11,19 +12,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Game {
 
     @Id
@@ -33,20 +31,20 @@ public class Game {
 
     @ManyToOne
     @JoinColumn(name="second_player_id",nullable = true)
-    private Player secondPlayer;
+    private User secondPlayer;
 
     @ManyToOne
     @JoinColumn(name = "first_player_id",nullable = false)
-    private Player firstPlayer;
+    private User firstPlayer;
 
-    @Enumerated(EnumType.STRING)
-    private Piece firstPlayerPieceCode;
+    @Column(name= "first_player_piece_code",nullable=false)
+    private String firstPlayerPieceCode;
 
-    @Enumerated(EnumType.STRING)
-    private GameType gameType;
+    @Column(name= "game_type",nullable=false)
+    private String gameType;
 
-    @Enumerated(EnumType.STRING)
-    private GameStatus gameStatus;
+    @Column(name= "game_status",nullable=false)
+    private String gameStatus;
 
     @Column(name= "created",nullable = false)
     private Date created;

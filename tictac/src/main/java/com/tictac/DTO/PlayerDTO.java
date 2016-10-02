@@ -19,6 +19,9 @@ public class PlayerDTO {
     private String password;
 
     @NotNull
+    private String confirmPassword;
+
+    @NotNull
     @Email
     private String email;
 }
