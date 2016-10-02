@@ -232,7 +232,8 @@ public class MoveService {
     }
 
     //The minimax algorithm
-    private int minimax(int depth, Game game){
+    private int minimax(int depth,Game game){
+
         String currentGameStatus = checkCurrentGameStatus(game);
 
         if(currentGameStatus == GameStatus.FIRST_PLAYER_WON.toString()){
@@ -277,6 +278,7 @@ public class MoveService {
                     }
                 }
             }else{
+
                 createdMove = createMove(game,game.getFirstPlayer(),moveDTO);
                 int currentScore = minimax(depth+1,game);
                 min = Math.min(currentScore,min);
@@ -285,7 +287,7 @@ public class MoveService {
                     break;
                 }
             }
-            resetMove(createdMove);
+
         }
         return (isPlayerTurn(game,game.getFirstPlayer(),game.getSecondPlayer())) ? max : min;
     }

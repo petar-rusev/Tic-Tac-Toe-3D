@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title>Game</title>
     <link href="/styles/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -20,16 +21,9 @@
           rel="stylesheet" type="text/css" />
 
 </head>
+
 <body ng-app="ticTacToe">
-<div class="home-section">
-
-    <ul class="menu-list">
-
-        <li><a href="#/player-panel">Users</a></li>
-
-    </ul>
-
-</div>
+<div th:replace="fragments/header :: header"></div>
 <div ng-view="name">
 </div>
 <script type="text/javascript" src="/scripts/libraries/jquery.min.js"></script>

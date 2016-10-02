@@ -12,10 +12,10 @@
 					<div class="navbar">
 						<div class="nav-collapse collapse">
 							<ul class="nav nav-pills ddmenu">
-								<li class="active"><a href="/">Home</a></li>
+								<li class="active"><a href="/home">Home</a></li>
 								
 								<li sec:authorize="isAuthenticated()"><a href="/">Player Panel</a></li>
-								<li sec:authorize="isAuthenticated()"><a class="logOutBtn">Log out</a></li>
+								<li sec:authorize="isAuthenticated()"><a href="/logout" class="logOutBtn">Log out</a></li>
 								
 								<li sec:authorize="!isAuthenticated()"><a href="/login">Login</a></li>
 							</ul>
