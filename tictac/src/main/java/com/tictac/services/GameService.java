@@ -7,6 +7,7 @@ import com.tictac.domain.Position;
 import com.tictac.domain.User;
 import com.tictac.enums.GameStatus;
 import com.tictac.enums.GameType;
+import com.tictac.enums.Piece;
 import com.tictac.repository.GameRepository;
 import com.tictac.repository.MoveRepository;
 import com.tictac.repository.PlayerRepository;
@@ -32,10 +33,12 @@ public class GameService {
     }
 
     public Game createNewGame(User player, GameDTO gameDTO){
+
         Game game  = new Game();
         game.setFirstPlayer(player);
         game.setGameType(GameType.COMPUTER.toString());
         game.setFirstPlayerPieceCode(gameDTO.getPiece());
+        game.setSecondPlayerPieceCode(gameDTO.getPiece().equals(Piece.O.toString()) ? Piece.X.toString() : Piece.O.toString());
         game.setGameStatus(GameStatus.IN_PROGRESS.toString());
         game.setCreated(new Date());
         gameRepository.save(game);

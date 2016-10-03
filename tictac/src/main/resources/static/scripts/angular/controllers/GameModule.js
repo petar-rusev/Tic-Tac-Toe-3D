@@ -24,8 +24,7 @@ ticTacToe.controller('newGameController',['$rootScope','$scope','$http','$locati
                 {name: 'X'},
                 {name: 'O'}
             ],
-            selectedPiece : {name : 'O'},
-
+            selectedPiece: {name: 'O'}
         };
 
         scope.createNewGame = function (){

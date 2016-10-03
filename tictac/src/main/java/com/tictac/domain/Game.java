@@ -40,6 +40,9 @@ public class Game {
     @Column(name= "first_player_piece_code",nullable=false)
     private String firstPlayerPieceCode;
 
+    @Column(name = "second_player_piece_code",nullable=false)
+    private String secondPlayerPieceCode;
+
     @Column(name= "game_type",nullable=false)
     private String gameType;
 

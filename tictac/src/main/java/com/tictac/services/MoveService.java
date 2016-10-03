@@ -58,8 +58,16 @@ public class MoveService {
     }
 
     public Move autoCreateMove(Game game){
-        minimax(3,game);
-        return computerGameMove;
+        Move move = new Move();
+        move.setBoardX(nextAutoMove(getTakenMovePositionsInGame(game)).getBoardX());
+        move.setBoardY(nextAutoMove(getTakenMovePositionsInGame(game)).getBoardY());
+        move.setBoardZ(nextAutoMove(getTakenMovePositionsInGame(game)).getBoardZ());
+        move.setCreated(new Date());
+        move.setPlayer(null);
+        move.setGame(game);
+        moveRepository.save(move);
+
+        return move;
     }
 
     public void resetMove(Move move){
@@ -87,17 +95,23 @@ public class MoveService {
         String currentPiece = game.getFirstPlayerPieceCode();
 
         for(Move move : movesInGame){
-            MoveDTO moveDTO = new MoveDTO();
-            moveDTO.setBoardX(move.getBoardX());
-            moveDTO.setBoardY(move.getBoardY());
-            moveDTO.setBoardZ(move.getBoardZ());
-            moveDTO.setCreated(move.getCreated());
-            moveDTO.setGameStatus(move.getGame().getGameStatus());
-            moveDTO.setUserName(move.getPlayer() == null ? GameType.COMPUTER.toString() : move.getPlayer().getUserName());
-            moveDTO.setPiece(currentPiece);
-            moves.add(moveDTO);
+                if(move.getPlayer() == null){
+                    currentPiece = game.getSecondPlayerPieceCode();
+                }
+                else{
+                    currentPiece = game.getFirstPlayerPieceCode();
+                }
+                MoveDTO moveDTO = new MoveDTO();
+                moveDTO.setBoardX(move.getBoardX());
+                moveDTO.setBoardY(move.getBoardY());
+                moveDTO.setBoardZ(move.getBoardZ());
+                moveDTO.setCreated(move.getCreated());
+                moveDTO.setGameStatus(move.getGame().getGameStatus());
+                moveDTO.setUserName(move.getPlayer() == null ? GameType.COMPUTER.toString() : move.getPlayer().getUserName());
+                moveDTO.setPiece(currentPiece);
+                moves.add(moveDTO);
 
-            currentPiece = currentPiece == "X" ? "O" : "X";
+
         }
 
         return moves;
@@ -262,7 +276,6 @@ public class MoveService {
                         computerGameMove = createdMove;
                     }
                 }else if(currentScore == 1){
-                    resetMove(createdMove);
                     break;
                 }
                 if(i == gameMovesAvailable.size() - 1 && max > 0){
@@ -276,6 +289,10 @@ public class MoveService {
         }
 
         return (isPlayerTurn(game,game.getFirstPlayer(),game.getSecondPlayer())) ? max : min;
+    }
+
+    public Position nextAutoMove(List<Position> takenPositions) {
+        return getOpenPositions(takenPositions).get(0);
     }
 
 }
