@@ -151,7 +151,7 @@ public class MoveService {
         winningPositions.add(asList(new Position(0,0,0), new Position(0,1,0), new Position(0,2,0)));
         winningPositions.add(asList(new Position(1,0,0), new Position(1,1,0), new Position(1,2,0)));
         winningPositions.add(asList(new Position(2,0,0), new Position(2,1,0), new Position(2,2,0)));
-        winningPositions.add(asList(new Position(0,0,0), new Position(1,1,0), new Position(0,2,0)));
+        winningPositions.add(asList(new Position(0,0,0), new Position(1,1,0), new Position(2,2,0)));
         winningPositions.add(asList(new Position(2,0,0), new Position(1,1,0), new Position(0,2,0)));
 
         //Everything in the middle level (z=1)
@@ -161,7 +161,7 @@ public class MoveService {
         winningPositions.add(asList(new Position(0,0,1), new Position(0,1,1), new Position(0,2,1)));
         winningPositions.add(asList(new Position(1,0,1), new Position(1,1,1), new Position(1,2,1)));
         winningPositions.add(asList(new Position(2,0,1), new Position(2,1,1), new Position(2,2,1)));
-        winningPositions.add(asList(new Position(0,0,1), new Position(1,1,1), new Position(0,2,1)));
+        winningPositions.add(asList(new Position(0,0,1), new Position(1,1,1), new Position(2,2,1)));
         winningPositions.add(asList(new Position(2,0,1), new Position(1,1,1), new Position(0,2,1)));
 
         //Everything in the top layer (z=2)
@@ -171,7 +171,7 @@ public class MoveService {
         winningPositions.add(asList(new Position(0,0,2), new Position(0,1,2), new Position(0,2,2)));
         winningPositions.add(asList(new Position(1,0,2), new Position(1,1,2), new Position(1,2,2)));
         winningPositions.add(asList(new Position(2,0,2), new Position(2,1,2), new Position(2,2,2)));
-        winningPositions.add(asList(new Position(0,0,2), new Position(1,1,2), new Position(0,2,2)));
+        winningPositions.add(asList(new Position(0,0,2), new Position(1,1,2), new Position(2,2,2)));
         winningPositions.add(asList(new Position(2,0,2), new Position(1,1,2), new Position(0,2,2)));
 
         //All the straight columns
@@ -192,12 +192,12 @@ public class MoveService {
 
         //All the diagonal columns - front to back
         winningPositions.add(asList(new Position(0,2,0), new Position(0,1,1), new Position(0,0,2)));
-        winningPositions.add(asList(new Position(1,2,0), new Position(1,1,1), new Position(1,2,2)));
-        winningPositions.add(asList(new Position(2,0,0), new Position(2,1,1), new Position(2,2,2)));
+        winningPositions.add(asList(new Position(1,2,0), new Position(1,1,1), new Position(1,0,2)));
+        winningPositions.add(asList(new Position(2,0,0), new Position(2,1,1), new Position(2,0,2)));
 
         //All the diagonal columns - left to right
         winningPositions.add(asList(new Position(0,0,0), new Position(1,0,1), new Position(2,0,2)));
-        winningPositions.add(asList(new Position(0,1,0), new Position(1,1,1), new Position(0,1,2)));
+        winningPositions.add(asList(new Position(0,1,0), new Position(1,1,1), new Position(2,1,2)));
         winningPositions.add(asList(new Position(0,2,0), new Position(1,2,1), new Position(2,2,2)));
 
         //All the diagonal columns - right to left
