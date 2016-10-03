@@ -249,7 +249,7 @@ public class MoveService {
     }
 
     private Integer[] pathStatus(Position first, Position second, Position third,Game game){
-        List<Move> allMoves = (List<Move>) moveRepository.findAll();
+        List<Move> allMoves = (List<Move>) moveRepository.findByGame(game);
         List<Position> allBoardPositions = getAllPositions();
         Integer[] points= {0,0,0};
 
