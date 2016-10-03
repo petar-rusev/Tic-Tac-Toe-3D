@@ -242,53 +242,72 @@ public class MoveService {
     }
 
     //The minimax algorithm
-    private int minimax(int depth,Game game){
+    private Move createComputerMove(Game game){
+        List<Position> playerMoves = getPlayerMovePositionsInGame(game,game.getFirstPlayer());
 
-        String currentGameStatus = checkCurrentGameStatus(game);
+        return new Move();
+    }
 
-        if(currentGameStatus == GameStatus.FIRST_PLAYER_WON.toString()){
-            return +1;
-        }
-        if(currentGameStatus == GameStatus.SECOND_PLAYER_WON.toString()){
-            return -1;
-        }
+    private Integer[] pathStatus(Position first, Position second, Position third,Game game){
+        List<Move> allMoves = (List<Move>) moveRepository.findAll();
+        List<Position> allBoardPositions = getAllPositions();
+        Integer[] points= {0,0,0};
 
-        List<Position> gameMovesAvailable = getOpenPositions(getTakenMovePositionsInGame(game));
+        return points;
+    }
 
-        if(gameMovesAvailable.isEmpty()){
-            return 0;
-        }
+    private boolean updatePrioritiesForWinning(Integer[] priorities,Game game){
+        List<List<Position>> winningPositions = getWinningPositions();
 
-        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for(int i=0;i<winningPositions.size();i++){
+            Position first = winningPositions.get(i).get(0);
+            Position second = winningPositions.get(i).get(1);
+            Position third = winningPositions.get(i).get(2);
 
-        for(int i = 0; i<gameMovesAvailable.size();++i){
-            Position gameMove = gameMovesAvailable.get(i);
-            CreateMoveDTO moveDTO = new CreateMoveDTO(gameMove.getBoardX(),gameMove.getBoardY(),gameMove.getBoardZ());
-            if(!isPlayerTurn(game,game.getFirstPlayer(),game.getSecondPlayer())){
+            Integer[] path = pathStatus(first,second,third,game);
 
-                Move createdMove = createMove(game,null,moveDTO);
-
-                int currentScore = minimax(depth+1,game);
-                max = Math.max(currentScore,max);
-
-                if(currentScore >= 0){
-                    if(depth == 0){
-                        computerGameMove = createdMove;
-                    }
-                }else if(currentScore == 1){
-                    break;
-                }
-                if(i == gameMovesAvailable.size() - 1 && max > 0){
-                    if(depth == 0){
-                        computerGameMove = createdMove;
-                        break;
-                    }
-                }
+            if(path[1] == 2 && path[1] == 1){
+                return true;
             }
-
         }
 
-        return (isPlayerTurn(game,game.getFirstPlayer(),game.getSecondPlayer())) ? max : min;
+        return false;
+    }
+
+    private boolean updatePrioritiesForBlockingOpponentFromWinning(Integer[] priorities, Game game){
+        List<List<Position>> winningPositions = getWinningPositions();
+
+        for(int i=0;i<winningPositions.size();i++){
+            Position first = winningPositions.get(i).get(0);
+            Position second = winningPositions.get(i).get(1);
+            Position third = winningPositions.get(i).get(2);
+
+            Integer[] path = pathStatus(first,second,third,game);
+
+            if(path[2] == 2 && path[2] == 1){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean updatePrioritiesForWinningAndBlockingPaths(Integer[] priorities, Game game){
+        List<List<Position>> winningPositions = getWinningPositions();
+
+        for(int i=0;i<winningPositions.size();i++){
+            Position first = winningPositions.get(i).get(0);
+            Position second = winningPositions.get(i).get(1);
+            Position third = winningPositions.get(i).get(2);
+
+            Integer[] path = pathStatus(first,second,third,game);
+
+            if(path[0] == 2){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Position nextAutoMove(List<Position> takenPositions) {
