@@ -14,10 +14,6 @@ public class AI {
 
     public GameMove computersGameMove;
 
-    private Date dateCreated;
-
-    private String gameId;
-
     public List<GameMove> getAvailableGameMoves() {
 
         availableGameMoves = new ArrayList<GameMove>();
@@ -50,21 +46,7 @@ public class AI {
         return gameBoard;
     }
 
-    public String getGameId(){
-        return this.gameId;
-    }
 
-    public void setGameId(String gameId){
-        this.gameId = gameId;
-    }
-
-    public Date getDateCreated(){
-        return this.dateCreated;
-    }
-
-    public void setDateCreated(Date date){
-        this.dateCreated = date;
-    }
     // the minimax algorithm
     public int minimax(int depth, int turn) {
 
