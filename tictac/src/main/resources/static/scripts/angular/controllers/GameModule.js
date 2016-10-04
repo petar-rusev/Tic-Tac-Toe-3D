@@ -2,7 +2,7 @@
  * Created by petar on 9/29/2016.
  */
 var jq = $.noConflict();
-localStorage.setItem("isGameFinished",null);
+
 function validateCreateGame(){
     var pieceType = jq('#piece :selected');
 
@@ -57,12 +57,7 @@ ticTacToe.controller('playerGamesController', ['$scope', '$http', '$location', '
             rootScope.gameId = Object.keys(id)[0];
             location.path('/game/'+rootScope.gameId);
         }
-        scope.getGameId = function(id){
-            return Object.keys(id)[0];
-        }
-        scope.getDateCreated = function(id){
-            return Object.keys(id)[0];
-        }
+
     }
 
 ])
@@ -91,26 +86,21 @@ ticTacToe.controller('gameController', function($rootScope, $routeParams, $scope
         var boardY = parseInt(column.charAt(1));
         var boardZ = parseInt(column.charAt(2));
         var params = {'boardX':boardX,'boardY':boardY,'boardZ':boardZ,'gameId':$rootScope.gameId}
+        $http.post("/move/create", params,{
+            headers:{
+                'Content-Type':'application/json; charset=UTF-8'
+            }
+        }).success(function(data){
+            if(data.message != null){
+                alert(data.message);
 
-        if(!localStorage.getItem("isGameFinished") != null){
-            $http.post("/move/create", params,{
-                headers:{
-                    'Content-Type':'application/json; charset=UTF-8'
-                }
-            }).success(function(data){
-                if(data.message != null){
-                    alert(data.message);
-                    localStorage.setItem("isGameFinished",data.message);
-                }
-                drawCube(data.gameBoard);
-            })
+            }
+            drawCube(data.gameBoard);
+        })
 
-                .error(function (data,status,headers,config){
-                    $scope.errorMessage = "Can't send the move"
-                });
-        }
-
-
+        .error(function (data,status,headers,config){
+            $scope.errorMessage = "Can't send the move"
+        });
     };
     function drawCube(cubeArray){
         var humanMoves  = 0;

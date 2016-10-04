@@ -3,6 +3,7 @@ package com.tictac.services;
 /**
  * Created by petar on 10/4/2016.
  */
+
 public class GameLogic {
     public static  boolean hasWinner(int[][][]gameBoard){
 

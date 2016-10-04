@@ -93,12 +93,6 @@ public class GameService {
             return moveResponceDTO;
         }
 
-        if(GameLogic.hasWinner(game.getGameBoard())){
-            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
-            moveResponceDTO.setMessage("The game has winner!");
-            return moveResponceDTO;
-        }
-
         game.makeGameMove(gameMove, 2);
 
         game.minimax(0, 1);
@@ -107,7 +101,11 @@ public class GameService {
 
         game.resetBoard();
 
-
+        if(GameLogic.hasWinner(game.getGameBoard())){
+            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
+            moveResponceDTO.setMessage("The game has winner!");
+            return moveResponceDTO;
+        }
 
         return new CreateMoveResponceDTO(game.getGameBoard());
     }
