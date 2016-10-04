@@ -2,6 +2,7 @@
  * Created by petar on 9/29/2016.
  */
 var jq = $.noConflict();
+localStorage.setItem("isGameFinished",null);
 function validateCreateGame(){
     var pieceType = jq('#piece :selected');
 
@@ -17,18 +18,9 @@ ticTacToe.controller('newGameController',['$rootScope','$scope','$http','$locati
     function (rootScope,scope,http,location){
 
         rootScope.gameId = null;
-        scope.newGameData = null;
-
-        scope.newGameOptions = {
-            availablePieces:[
-                {name: 'X'},
-                {name: 'O'}
-            ],
-            selectedPiece: {name: 'O'}
-        };
 
         scope.createNewGame = function (){
-            var data = scope.newGameData;
+            var data = {"piece":"X"};
             var params = JSON.stringify(data);
             validateCreateGame();
             http.post("/game/create",params,{
@@ -55,6 +47,7 @@ ticTacToe.controller('playerGamesController', ['$scope', '$http', '$location', '
         http.get('/game/player/list').success(function(data){
             console.log(data);
             scope.playerGames  = data;
+
         }).error(function(data,status,headers,config){
             location.path('/player-panel');
         })
@@ -64,7 +57,14 @@ ticTacToe.controller('playerGamesController', ['$scope', '$http', '$location', '
             rootScope.gameId = Object.keys(id)[0];
             location.path('/game/'+rootScope.gameId);
         }
+        scope.getGameId = function(id){
+            return Object.keys(id)[0];
+        }
+        scope.getDateCreated = function(id){
+            return Object.keys(id)[0];
+        }
     }
+
 ])
 
 
@@ -92,19 +92,24 @@ ticTacToe.controller('gameController', function($rootScope, $routeParams, $scope
         var boardZ = parseInt(column.charAt(2));
         var params = {'boardX':boardX,'boardY':boardY,'boardZ':boardZ,'gameId':$rootScope.gameId}
 
+        if(!localStorage.getItem("isGameFinished") != null){
+            $http.post("/move/create", params,{
+                headers:{
+                    'Content-Type':'application/json; charset=UTF-8'
+                }
+            }).success(function(data){
+                if(data.message != null){
+                    alert(data.message);
+                    localStorage.setItem("isGameFinished",data.message);
+                }
+                drawCube(data.gameBoard);
+            })
 
-        $http.post("/move/create", params,{
-            headers:{
-                'Content-Type':'application/json; charset=UTF-8'
-            }
-        }).success(function(data){
-            drawCube(data);
+                .error(function (data,status,headers,config){
+                    $scope.errorMessage = "Can't send the move"
+                });
+        }
 
-        })
-
-        .error(function (data,status,headers,config){
-            $scope.errorMessage = "Can't send the move"
-        });
 
     };
     function drawCube(cubeArray){
@@ -134,6 +139,5 @@ ticTacToe.controller('gameController', function($rootScope, $routeParams, $scope
                 alert("Computer is the winner!");
             }
         }
-
     }
 });

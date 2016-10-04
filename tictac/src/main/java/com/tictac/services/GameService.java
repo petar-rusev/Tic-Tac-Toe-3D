@@ -1,5 +1,6 @@
 package com.tictac.services;
 
+import com.tictac.DTO.CreateMoveResponceDTO;
 import com.tictac.DTO.GameDTO;
 import com.tictac.domain.User;
 import com.tictac.repository.GameRepository;
@@ -17,8 +18,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Transactional
 public class GameService {
-private final GameRepository gameRepository;
-    Map<Long, List<Map<String, TicTacToe>>> activeGames = ExpiringMap.builder().expirationPolicy(ExpiringMap.ExpirationPolicy.ACCESSED).expiration(450, TimeUnit.HOURS).build();
+    private final GameRepository gameRepository;
+    Map<Long, List<Map<String, AI>>> activeGames = ExpiringMap.builder().expirationPolicy(ExpiringMap.ExpirationPolicy.ACCESSED).expiration(450, TimeUnit.HOURS).build();
     @Autowired
     private PlayerService playerService;
     @Autowired
@@ -27,74 +28,96 @@ private final GameRepository gameRepository;
 
     }
 
-    public List<Map<String, TicTacToe>> getPlayerGames(User player){
+    public List<Map<String, AI>> getPlayerGames(User player){
         return activeGames.get(playerService.getLoggedUser().getId());
     }
 
 
-    public  TicTacToe getGame(String id){
-        List<Map<String, TicTacToe>> games =  activeGames.get(playerService.getLoggedUser().getId());
-        TicTacToe  game;
+    public  AI getGame(String id){
+        List<Map<String, AI>> games =  activeGames.get(playerService.getLoggedUser().getId());
+        AI  game;
         for(int i =0; i<games.size();i++){
             if(games.get(i).containsKey(id)){
                 return games.get(i).get(id);
             }
 
         }
-        return new TicTacToe();
+        return new AI();
     }
 
     public String createNewGame(User player, GameDTO gameDTO){
         String uniqueKey = UUID.randomUUID().toString();
-        Map game =   new HashMap<String,TicTacToe>();
+        Map game =   new HashMap<String,AI>();
 
-        List<Map<String, TicTacToe>> userGames=  activeGames.get(player.getId());
+        List<Map<String, AI>> userGames=  activeGames.get(player.getId());
 
         if(userGames==null){
-            userGames = new ArrayList<Map<String, TicTacToe>>();
-            Map<String, TicTacToe> g = new HashMap<String, TicTacToe>();
-            g.put(uniqueKey,new TicTacToe() );
+            userGames = new ArrayList<Map<String, AI>>();
+            Map<String, AI> g = new HashMap<String, AI>();
+            AI newGame  = new AI();
+            newGame.setDateCreated(new Date());
+            newGame.setGameId(uniqueKey);
+            g.put(uniqueKey,newGame);
             userGames.add(g);
             activeGames.put(player.getId(), userGames);
         }else{
-            Map<String, TicTacToe> g = new HashMap<String, TicTacToe>();
-            g.put(uniqueKey,new TicTacToe() );
+            Map<String, AI> g = new HashMap<String, AI>();
+            AI newGame = new AI();
+            newGame.setDateCreated(new Date());
+            newGame.setGameId(uniqueKey);
+            g.put(uniqueKey,newGame);
+            g.put(uniqueKey,newGame);
             userGames.add(g);
         }
 
 
         return uniqueKey;
     }
+    public boolean getWinner(String id){
+        return GameLogic.hasWinner(getGame(id).getGameBoard());
+    }
+    public CreateMoveResponceDTO move(int i, int j, int z,String gameId) {
 
-    public int[][][] move(int i, int j, int z,String gameId) {
+        AI game = null;
+        GameMove gameMove = new GameMove(i, j, z);
+        //Get game by id
+        List<Map<String, AI>> games =  activeGames.get(playerService.getLoggedUser().getId());
 
-            TicTacToe game = null;
-            GameMove gameMove = new GameMove(i, j, z);
-            //Get game by id
-            List<Map<String, TicTacToe>> games =  activeGames.get(playerService.getLoggedUser().getId());
-
-            for(int v =0; v<games.size();v++){
-                if(games.get(v).containsKey(gameId)){
-                    game = games.get(v).get(gameId);
-                }
+        for(int v =0; v<games.size();v++){
+            if(games.get(v).containsKey(gameId)){
+                game = games.get(v).get(gameId);
             }
-
-            if(game==null){
-                throw  new IllegalArgumentException("The game does not exist");
-            }
+        }
 
 
+        if(game.getAvailableGameMoves().size()==0){
+            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
+            moveResponceDTO.setMessage("The game is finished!");
+            return moveResponceDTO;
+        }
 
-            game.makeGameMove(gameMove, 2);
+        if(game==null){
+            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO();
+            moveResponceDTO.setMessage("The game does not exist!");
+            return moveResponceDTO;
+        }
 
-            game.minimax(0, 1);
 
-            game.makeGameMove(game.computersGameMove, 1);
 
-            game.resetBoard();
-            if(game.getAvailableGameMoves().size()==0){
-                //TODO Remove form the Map
-            }
-            return game.getGameBoard();
+        game.makeGameMove(gameMove, 2);
+
+        game.minimax(0, 1);
+
+        game.makeGameMove(game.computersGameMove, 1);
+
+        game.resetBoard();
+        if(GameLogic.hasWinner(game.getGameBoard())){
+            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
+            moveResponceDTO.setMessage("The game has winner!");
+            return moveResponceDTO;
+        }
+
+
+        return new CreateMoveResponceDTO(game.getGameBoard());
     }
 }

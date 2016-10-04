@@ -4,12 +4,11 @@ package com.tictac.controllers.RestControllers;
  * Created by petar on 9/29/2016.
  */
 import com.tictac.DTO.CreateMoveDTO;
+import com.tictac.DTO.CreateMoveResponceDTO;
 import com.tictac.DTO.MoveDTO;
 import com.tictac.domain.Game;
 import com.tictac.domain.Move;
-import com.tictac.services.GameService;
-import com.tictac.services.MoveService;
-import com.tictac.services.PlayerService;
+import com.tictac.services.*;
 import com.tictac.services.PlayerService;
 import com.tictac.domain.Position;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class MoveRestController {
     private HttpSession httpSession;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public int[][][] createMove(@RequestBody CreateMoveDTO createMoveDTO){
+    public CreateMoveResponceDTO createMove(@RequestBody CreateMoveDTO createMoveDTO){
 
         return gameService.move(createMoveDTO.getBoardX(),createMoveDTO.getBoardY(),createMoveDTO.getBoardZ(),createMoveDTO.getGameId());
     }

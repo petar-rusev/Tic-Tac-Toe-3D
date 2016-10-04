@@ -11,7 +11,7 @@ import com.tictac.enums.GameStatus;
 import com.tictac.services.GameService;
 import com.tictac.services.MoveService;
 import com.tictac.services.PlayerService;
-import com.tictac.services.TicTacToe;
+import com.tictac.services.AI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -46,16 +46,16 @@ public class GameRestController {
     }
 
     @RequestMapping(value = "/player/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Map<String, TicTacToe>> getPlayerGames(){
-        List<Map<String, TicTacToe>> games = gameService.getPlayerGames(playerService.getLoggedUser());
+    public List<Map<String, AI>> getPlayerGames(){
+        List<Map<String, AI>> games = gameService.getPlayerGames(playerService.getLoggedUser());
         if(games != null){
             return games;
         }
-        return new ArrayList<Map<String, TicTacToe>>();
+        return new ArrayList<Map<String, AI>>();
     }
 
     @RequestMapping(value = "/{id}")
-    public TicTacToe getGameProperties(@PathVariable String id){
+    public AI getGameProperties(@PathVariable String id){
         httpSession.setAttribute("gameId", id);
 
         return gameService.getGame(id);

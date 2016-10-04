@@ -12,17 +12,6 @@
             <h2 class="lead">New game</h2>
             <form name="createNewBoard" class="form-horizontal" novalidate ng-submit="createNewGame()">
                <div class="form-group">
-                    <label for="piece" class="col-md-2 control-label">Play as:</label>
-                    <div style="margin-bottom: 30px" class="col-md-8">
-                        <select required class="form-control" name="piece" id="piece" ng-model="newGameData.piece">
-                            <option ng-repeat="option in newGameOptions.availablePieces" value="{{option.name}}">{{option.name}}</option>
-                        </select>
-                    </div>
-                    <span class="piece-validation-message hidden">
-                        Please select one of the piece types
-                    </span>
-                </div>
-                <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-6" style="padding-bottom:50px">
                         <button type="submit" class="btn btn-md btn-primary createGame" ng-disabled="createNewGame.$invalid">
                             <span class="glyphicon glyphicon-plus">New Game</span>
@@ -36,18 +25,15 @@
             <table class="table table-hover table-striped table-condensed" ng-show="playerGames.length">
                 <h2 class="lead">My games</h2>
                 <thead>
-                    <td>Started player</td>
-                    <td>Second player</td>
-                    <td>Game status</td>
+                    <td>Game ID</td>
                     <td>Created</td>
                     <td></td>
                 </thead>
                 <tbody>
 
                     <tr ng-repeat="game in playerGames">
-
-                        <td>222</td>
-
+                        <td>{{game}}</td>
+                        <td>{{game}}</td>
                         <td>
                             <button class="btn btn-sm" ng-click="loadGame(game)">
                                 <span class="glyphicon glyphicon-plus"></span>Load game
