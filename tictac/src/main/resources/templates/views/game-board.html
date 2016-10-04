@@ -1,29 +1,113 @@
 <div class="row">
 
     <div style="display:inline-block" class="col-md-6">
-        <div  style = "margin:30px; display:inline-block;"  class="gametable" id="board">
-            <div style="margin:30px">
-                <div ng-repeat="row in rowsLayerOne" class="tablerow">
-                    <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
-                        <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin:30px">
-                <div ng-repeat="row in rowsLayerTwo" class="tablerow">
-                    <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
-                        <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin:30px">
-                <div ng-repeat="row in rowsLayerThree" class="tablerow">
-                    <div id="{{column.id}}" class="{{column.class}}" ng-repeat="column in row" >
-                        <div ng-click="markPlayerMove(column)" class="boxContent{{column.letter}}"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       <div class="tictactoe">
+           <div class="table table-2">
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('002')" class="table-box top" id="002">
+
+                   </div>
+                   <div ng-click="markPlayerMove('102')" class="table-box middle" id="102">
+
+                   </div>
+                   <div ng-click="markPlayerMove('202')" class="table-box bottom" id="202">
+
+                   </div>
+               </div>
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('012')" class="table-box top" id="012">
+
+                   </div>
+                   <div ng-click="markPlayerMove('112')" class="table-box middle" id="112">
+
+                   </div>
+                   <div ng-click="markPlayerMove('212')" class="table-box bottom" id="212">
+
+                   </div>
+               </div>
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('022')" class="table-box top" id="022">
+
+                   </div>
+                   <div ng-click="markPlayerMove('122')" class="table-box middle" id="122">
+
+                   </div>
+                   <div ng-click="markPlayerMove('222')" class="table-box bottom" id="222">
+
+                   </div>
+               </div>
+           </div>
+           <div class="table table-1">
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('001')" class="table-box top" id="001">
+
+                   </div>
+                   <div ng-click="markPlayerMove('101')" class="table-box middle" id="101">
+
+                   </div>
+                   <div ng-click="markPlayerMove('201')" class="table-box bottom" id="201">
+
+                   </div>
+               </div>
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('011')" class="table-box top" id="011">
+
+                   </div>
+                   <div ng-click="markPlayerMove('111')" class="table-box middle" id="111">
+
+                   </div>
+                   <div ng-click="markPlayerMove('211')" class="table-box bottom" id="211">
+
+                   </div>
+               </div>
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('021')" class="table-box top" id="021">
+
+                   </div>
+                   <div ng-click="markPlayerMove('121')" class="table-box middle" id="121">
+
+                   </div>
+                   <div ng-click="markPlayerMove('221')" class="table-box bottom" id="221">
+
+                   </div>
+               </div>
+           </div>
+           <div class="table table-0">
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('000')" class="table-box top" id="000">
+
+                   </div>
+                   <div ng-click="markPlayerMove('100')" class="table-box middle" id="100">
+
+                   </div>
+                   <div ng-click="markPlayerMove('200')" class="table-box bottom" id="200">
+
+                   </div>
+               </div>
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('010')" class="table-box top" id="010">
+
+                   </div>
+                   <div ng-click="markPlayerMove('110')" class="table-box middle" id="110">
+
+                   </div>
+                   <div ng-click="markPlayerMove('210')" class="table-box bottom" id="210">
+
+                   </div>
+               </div>
+               <div class="table-column">
+                   <div ng-click="markPlayerMove('020')" class="table-box top" id="020">
+
+                   </div>
+                   <div ng-click="markPlayerMove('120')" class="table-box middle" id="120">
+
+                   </div>
+                   <div ng-click="markPlayerMove('220')" class="table-box bottom" id="220">
+
+                   </div>
+               </div>
+           </div>
+       </div>
     </div>
 
     <div style="display:inline-block;margin-left:350px" class="col-md-6">

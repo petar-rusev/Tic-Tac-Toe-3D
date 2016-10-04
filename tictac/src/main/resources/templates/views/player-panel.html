@@ -43,20 +43,13 @@
                     <td></td>
                 </thead>
                 <tbody>
+
                     <tr ng-repeat="game in playerGames">
-                        <td>{{game.firstPlayer.userName}}</td>
+
+                        <td>222</td>
+
                         <td>
-                            <span ng-if="!game.player.userName">
-                                COMPUTER
-                            </span>
-                            <span ng-if="game.player.userName != ''">
-                                {{game.secondPlayer.userName}}
-                            </span>
-                        </td>
-                        <td>{{game.gameStatus}}</td>
-                        <td>{{game.created | date:'MM-dd-yyyy HH:mm:ss'}}</td>
-                        <td>
-                            <button class="btn btn-sm" ng-click="loadGame(game.id)">
+                            <button class="btn btn-sm" ng-click="loadGame(game)">
                                 <span class="glyphicon glyphicon-plus"></span>Load game
                             </button>
                         </td>

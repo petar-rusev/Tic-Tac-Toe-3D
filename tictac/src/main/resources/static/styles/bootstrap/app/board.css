@@ -1,0 +1,41 @@
+.tictactoe{
+    padding-left:150px;
+}
+.table{
+    height:200px;
+}
+.table-column{
+    width:200px;
+    height:20px;
+    display: inline-block;
+    margin-right:20px;
+    position:relative;
+
+}
+.table-box{
+    position:absolute;
+    border:1px solid black;
+    border-radius: 5px;
+    width:90px;
+    height:90px;
+    background-color:rgb(255,255,255);
+
+}
+.table-box:hover{
+    cursor:pointer;
+    background-color: rgba(17, 162, 237, 0.17);
+    border-color:rgba(17, 162, 237, 0.17);
+}
+.top{
+    z-index:100;
+}
+.middle{
+    top:40px;
+    left:40px;
+    z-index:50;
+}
+.bottom{
+    top:80px;
+    left:80px;
+    z-index:0;
+}

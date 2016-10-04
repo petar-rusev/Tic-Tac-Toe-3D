@@ -3,6 +3,7 @@ package com.tictac.controllers.RestControllers;
 /**
  * Created by petar on 9/29/2016.
  */
+import com.tictac.DTO.CreateNewGameDTO;
 import com.tictac.DTO.GameDTO;
 import com.tictac.domain.Game;
 import com.tictac.domain.User;
@@ -10,12 +11,16 @@ import com.tictac.enums.GameStatus;
 import com.tictac.services.GameService;
 import com.tictac.services.MoveService;
 import com.tictac.services.PlayerService;
+import com.tictac.services.TicTacToe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/game")
@@ -32,20 +37,25 @@ public class GameRestController {
     @Autowired
     HttpSession httpSession;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Game createNewGame(@RequestBody GameDTO gameDTO){
-        Game game = gameService.createNewGame(playerService.getLoggedUser(),gameDTO);
-        httpSession.setAttribute("gameId",game.getId());
-        return game;
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public CreateNewGameDTO createNewGame(@RequestBody GameDTO gameDTO){
+        CreateNewGameDTO createGameDTO = new CreateNewGameDTO();
+        createGameDTO.setGameId(gameService.createNewGame(playerService.getLoggedUser(),gameDTO));
+
+        return createGameDTO;
     }
 
     @RequestMapping(value = "/player/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Game> getPlayerGames(){
-        return gameService.getPlayerGames(playerService.getLoggedUser());
+    public List<Map<String, TicTacToe>> getPlayerGames(){
+        List<Map<String, TicTacToe>> games = gameService.getPlayerGames(playerService.getLoggedUser());
+        if(games != null){
+            return games;
+        }
+        return new ArrayList<Map<String, TicTacToe>>();
     }
 
     @RequestMapping(value = "/{id}")
-    public Game getGameProperties(@PathVariable Long id){
+    public TicTacToe getGameProperties(@PathVariable String id){
         httpSession.setAttribute("gameId", id);
 
         return gameService.getGame(id);

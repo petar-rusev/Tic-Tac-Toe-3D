@@ -39,44 +39,39 @@ public class MoveRestController {
     private HttpSession httpSession;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public Move createMove(@RequestBody CreateMoveDTO createMoveDTO){
-        Long gameId = (Long) httpSession.getAttribute("gameId");
+    public int[][][] createMove(@RequestBody CreateMoveDTO createMoveDTO){
 
-        Move move  = moveService.createMove(gameService.getGame(gameId),playerService.getLoggedUser(),createMoveDTO);
-        Game game = gameService.getGame(gameId);
-        gameService.updateGameStatus(gameService.getGame(gameId),moveService.checkCurrentGameStatus(game));
-
-        return move;
+        return gameService.move(createMoveDTO.getBoardX(),createMoveDTO.getBoardY(),createMoveDTO.getBoardZ(),createMoveDTO.getGameId());
     }
 
-    @RequestMapping(value = "/autocreate", method = RequestMethod.GET)
-    public Move autoCreateMove(){
-        Long gameId = (Long) httpSession.getAttribute("gameId");
+//    @RequestMapping(value = "/autocreate", method = RequestMethod.GET)
+//    public Move autoCreateMove(){
+//        Long gameId = (Long) httpSession.getAttribute("gameId");
+//
+//        Move move = moveService.autoCreateMove(gameService.getGame(gameId));
+//
+//        Game game = gameService.getGame(gameId);
+//        gameService.updateGameStatus(gameService.getGame(gameId),moveService.checkCurrentGameStatus(game));
+//
+//        return move;
+//    }
 
-        Move move = moveService.autoCreateMove(gameService.getGame(gameId));
+//    @RequestMapping(value = "/list",method = RequestMethod.GET)
+//    public List<MoveDTO> getMovesInGame(){
+//        Long gameId = (Long) httpSession.getAttribute("gameId");
+//
+//        return moveService.getMovesInGame(gameService.getGame(gameId));
+//    }
 
-        Game game = gameService.getGame(gameId);
-        gameService.updateGameStatus(gameService.getGame(gameId),moveService.checkCurrentGameStatus(game));
+//    @RequestMapping(value = "/check", method = RequestMethod.GET)
+//    public List<Position> validateMoves(){
+//        Long gameId = (Long) httpSession.getAttribute("gameId");
+//        return moveService.getPlayerMovePositionsInGame(gameService.getGame(gameId),playerService.getLoggedUser());
+//    }
 
-        return move;
-    }
-
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<MoveDTO> getMovesInGame(){
-        Long gameId = (Long) httpSession.getAttribute("gameId");
-
-        return moveService.getMovesInGame(gameService.getGame(gameId));
-    }
-
-    @RequestMapping(value = "/check", method = RequestMethod.GET)
-    public List<Position> validateMoves(){
-        Long gameId = (Long) httpSession.getAttribute("gameId");
-        return moveService.getPlayerMovePositionsInGame(gameService.getGame(gameId),playerService.getLoggedUser());
-    }
-
-    @RequestMapping(value = "/turn",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean isPlayerTurn(){
-        Long gameId = (Long) httpSession.getAttribute("gameId");
-        return moveService.isPlayerTurn(gameService.getGame(gameId),gameService.getGame(gameId).getFirstPlayer(),gameService.getGame(gameId).getSecondPlayer());
-    }
+//    @RequestMapping(value = "/turn",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public boolean isPlayerTurn(){
+//        Long gameId = (Long) httpSession.getAttribute("gameId");
+//        return moveService.isPlayerTurn(gameService.getGame(gameId),gameService.getGame(gameId).getFirstPlayer(),gameService.getGame(gameId).getSecondPlayer());
+//    }
 }

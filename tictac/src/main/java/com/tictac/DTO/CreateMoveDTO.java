@@ -19,6 +19,9 @@ import javax.validation.constraints.NotNull;
 public class CreateMoveDTO {
 
     @NotNull
+    String gameId;
+
+    @NotNull
     int boardX;
 
     @NotNull
