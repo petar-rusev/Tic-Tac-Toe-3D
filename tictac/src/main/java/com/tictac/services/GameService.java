@@ -54,28 +54,19 @@ public class GameService {
         if(userGames==null){
             userGames = new ArrayList<Map<String, AI>>();
             Map<String, AI> g = new HashMap<String, AI>();
-            AI newGame  = new AI();
-            newGame.setDateCreated(new Date());
-            newGame.setGameId(uniqueKey);
-            g.put(uniqueKey,newGame);
+            g.put(uniqueKey,new AI());
             userGames.add(g);
             activeGames.put(player.getId(), userGames);
         }else{
             Map<String, AI> g = new HashMap<String, AI>();
-            AI newGame = new AI();
-            newGame.setDateCreated(new Date());
-            newGame.setGameId(uniqueKey);
-            g.put(uniqueKey,newGame);
-            g.put(uniqueKey,newGame);
+            g.put(uniqueKey,new AI());
             userGames.add(g);
         }
 
 
         return uniqueKey;
     }
-    public boolean getWinner(String id){
-        return GameLogic.hasWinner(getGame(id).getGameBoard());
-    }
+
     public CreateMoveResponceDTO move(int i, int j, int z,String gameId) {
 
         AI game = null;
@@ -102,7 +93,11 @@ public class GameService {
             return moveResponceDTO;
         }
 
-
+        if(GameLogic.hasWinner(game.getGameBoard())){
+            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
+            moveResponceDTO.setMessage("The game has winner!");
+            return moveResponceDTO;
+        }
 
         game.makeGameMove(gameMove, 2);
 
@@ -111,11 +106,7 @@ public class GameService {
         game.makeGameMove(game.computersGameMove, 1);
 
         game.resetBoard();
-        if(GameLogic.hasWinner(game.getGameBoard())){
-            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
-            moveResponceDTO.setMessage("The game has winner!");
-            return moveResponceDTO;
-        }
+
 
 
         return new CreateMoveResponceDTO(game.getGameBoard());

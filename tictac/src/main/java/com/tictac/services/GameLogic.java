@@ -16,7 +16,7 @@ public class GameLogic {
         if(gameBoard[0][2][0] != 0 && gameBoard[0][2][0] == gameBoard[1][2][0] && gameBoard[0][2][0] == gameBoard[2][2][0]){
             return true;
         }
-        if(gameBoard[0][0][0] !=0 && gameBoard[0][0][0] == gameBoard[0][1][0] && gameBoard[0][0][0] == gameBoard[0][2][0]){
+        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] == gameBoard[0][1][0] && gameBoard[0][0][0] == gameBoard[0][2][0]){
             return true;
         }
         if(gameBoard[1][0][0] != 0 && gameBoard[1][0][0] == gameBoard[1][1][0] && gameBoard[1][0][0] == gameBoard[1][2][0]){
@@ -26,7 +26,7 @@ public class GameLogic {
         if(gameBoard[2][0][0] != 0 && gameBoard[2][0][0] == gameBoard[2][1][0] && gameBoard[2][0][0] == gameBoard[2][2][0]){
             return true;
         }
-        if(gameBoard[0][0][0] !=0 && gameBoard[0][0][0] == gameBoard[1][1][0] && gameBoard[0][0][0] == gameBoard[2][2][0]){
+        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] == gameBoard[1][1][0] && gameBoard[0][0][0] == gameBoard[2][2][0]){
             return true;
         }
         if(gameBoard[2][0][0] != 0 && gameBoard[2][0][0] == gameBoard[1][1][0] && gameBoard[2][0][0] == gameBoard[0][2][0]){
@@ -88,7 +88,7 @@ public class GameLogic {
         }
 
         //All the straight columns
-        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] !=0&&gameBoard[0][0][0] == gameBoard[0][0][1] && gameBoard[0][0][0] == gameBoard[0][0][2]){
+        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] == gameBoard[0][0][1] && gameBoard[0][0][0] == gameBoard[0][0][2]){
             return true;
         }
         if(gameBoard[1][0][0] != 0 && gameBoard[1][0][0] == gameBoard[1][0][1] && gameBoard[1][0][0] == gameBoard[1][0][2]){
@@ -117,7 +117,7 @@ public class GameLogic {
         }
 
         //All the diagonal columns - back to front
-        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] !=0&&gameBoard[0][0][0] !=0&&gameBoard[0][0][0] == gameBoard[0][1][1] && gameBoard[0][0][0] == gameBoard[0][2][2]){
+        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] == gameBoard[0][1][1] && gameBoard[0][0][0] == gameBoard[0][2][2]){
             return true;
         }
         if(gameBoard[1][0][0] != 0 && gameBoard[1][0][0] == gameBoard[1][1][1] && gameBoard[1][0][0] == gameBoard[1][2][2]){
@@ -162,7 +162,7 @@ public class GameLogic {
         }
 
         //All the diagonal columns - corner to corner
-        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] !=0&&gameBoard[0][0][0] == gameBoard[1][1][1] && gameBoard[0][0][0] == gameBoard[2][2][2]){
+        if(gameBoard[0][0][0] != 0 && gameBoard[0][0][0] == gameBoard[1][1][1] && gameBoard[0][0][0] == gameBoard[2][2][2]){
             return true;
         }
         if(gameBoard[0][2][0] != 0 && gameBoard[0][2][0] == gameBoard[1][1][1] && gameBoard[0][2][0] == gameBoard[2][0][2]){

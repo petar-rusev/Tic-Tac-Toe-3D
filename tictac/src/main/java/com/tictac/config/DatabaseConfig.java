@@ -21,7 +21,7 @@ public class DatabaseConfig {
 
     @Bean
     public DataSource getDataSource(){
-        DriverManagerDataSource ds = new DriverManagerDataSource("jdbc:postgresql://localhost:5432/tictactoe","tictactoe","tictactoe");
+        DriverManagerDataSource ds = new DriverManagerDataSource("jdbc:postgresql://localhost:5432/tictactoe","postgres","tictactoe");
 
         return ds;
     }
