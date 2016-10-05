@@ -79,21 +79,33 @@ public class GameService {
             throw new IllegalArgumentException();
         }
 
-        game.makeGameMove(gameMove,2);
-        GameMove move = game.makeComputerMove();
-        game.makeGameMove(move, 1);
-        game.resetPriorities();
 
-        if(GameLogic.checkForWinner(game.getGameBoard()) == 1){
+        if(GameLogic.checkForWinner(game.getGameBoard()) == 0 && !GameLogic.checkForStalemante(game.getGameBoard())){
+
+            game.makeGameMove(gameMove,2);
+
+            GameMove move = game.makeComputerMove();
+            game.makeGameMove(move, 1);
+            game.resetPriorities();
+        }
+
+        if(GameLogic.checkForStalemante(game.getGameBoard())){
             CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
-            moveResponceDTO.setMessage("Computer wins!");
+            moveResponceDTO.setMessage("The game is Draw!");
             return moveResponceDTO;
-        }else if(GameLogic.checkForWinner(game.getGameBoard()) == 2){
+        }
+        if(GameLogic.checkForWinner(game.getGameBoard()) == 2){
             CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
             moveResponceDTO.setMessage("Congratulations you win!");
             return moveResponceDTO;
         }
 
+
+        if(GameLogic.checkForWinner(game.getGameBoard()) == 1){
+            CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
+            moveResponceDTO.setMessage("Computer wins!");
+            return moveResponceDTO;
+        }
 
 
         return new CreateMoveResponseDTO(game.getGameBoard());

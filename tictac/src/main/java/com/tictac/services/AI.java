@@ -9,24 +9,6 @@ public class AI {
     private int gameBoard[][][] = new int[3][3][3];
     private int priorities[] = new int[27];
 
-    public GameMove computersGameMove;
-
-    private List<int[]> generateMoves(){
-        List<int[]> nextMoves = new ArrayList<int[]>();
-
-        for(int i = 0; i < 3;i++){
-            for(int j = 0; j < 3;j++){
-                for(int k = 0; k < 3;k++){
-                    if(gameBoard[i][j][k] == 0){
-                        nextMoves.add(new int[]{i,j,k});
-                    }
-                }
-            }
-        }
-
-        return nextMoves;
-    }
-
     public int[][][] getGameBoard(){
         return gameBoard;
     }

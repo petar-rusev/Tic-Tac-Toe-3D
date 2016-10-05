@@ -110,4 +110,23 @@ public class GameLogic {
         return 0;
     }
 
+    public static boolean checkForStalemante(int[][][] board){
+        int counter = 0;
+
+        for(int i = 0; i < 3;i++){
+            for(int j = 0; j < 3;j++){
+                for(int k = 0; k < 3;k++){
+                    if(board[i][j][k] != 0){
+                        counter++;
+                    }
+                }
+            }
+        }
+
+        if(counter == 27){
+            return true;
+        }
+
+        return false;
+    }
 }
