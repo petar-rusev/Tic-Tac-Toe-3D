@@ -81,6 +81,44 @@ public class GameLogic {
         winningPositions.add(asList(new Position(2,0,0), new Position(1,1,1), new Position(0,2,2)));
         winningPositions.add(asList(new Position(2,2,0), new Position(1,1,1), new Position(0,0,2)));
 
+        //Diagonals
+        winningPositions.add(asList(new Position(0,0,0), new Position(1,1,0), new Position(2,2,0)));
+        winningPositions.add(asList(new Position(2,0,0), new Position(1,1,0), new Position(0,2,0)));
+        winningPositions.add(asList(new Position(2,2,0), new Position(1,1,0), new Position(0,0,0)));
+        winningPositions.add(asList(new Position(0,2,0), new Position(1,1,0), new Position(2,0,0)));
+
+        winningPositions.add(asList(new Position(0,0,1), new Position(1,1,1), new Position(2,2,1)));
+        winningPositions.add(asList(new Position(2,0,1), new Position(1,1,1), new Position(0,2,1)));
+        winningPositions.add(asList(new Position(2,2,1), new Position(1,1,1), new Position(0,0,1)));
+        winningPositions.add(asList(new Position(0,2,1), new Position(1,1,1), new Position(2,0,1)));
+
+        winningPositions.add(asList(new Position(0,0,2), new Position(1,1,2), new Position(2,2,2)));
+        winningPositions.add(asList(new Position(2,0,2), new Position(1,1,2), new Position(0,2,2)));
+        winningPositions.add(asList(new Position(2,2,2), new Position(1,1,2), new Position(0,0,2)));
+        winningPositions.add(asList(new Position(0,2,2), new Position(1,1,2), new Position(2,0,2)));
+
+        //All columns
+        winningPositions.add(asList(new Position(2,0,2), new Position(2,0,1), new Position(2,0,0)));
+        winningPositions.add(asList(new Position(2,0,0), new Position(2,0,1), new Position(2,0,2)));
+        winningPositions.add(asList(new Position(2,1,2), new Position(2,1,1), new Position(2,1,0)));
+        winningPositions.add(asList(new Position(2,1,0), new Position(2,1,1), new Position(2,1,2)));
+        winningPositions.add(asList(new Position(2,2,2), new Position(2,2,1), new Position(2,2,0)));
+        winningPositions.add(asList(new Position(2,2,0), new Position(2,2,1), new Position(2,2,2)));
+
+        winningPositions.add(asList(new Position(1,0,2), new Position(1,0,1), new Position(1,0,0)));
+        winningPositions.add(asList(new Position(1,0,0), new Position(1,0,1), new Position(1,0,2)));
+        winningPositions.add(asList(new Position(1,1,2), new Position(1,1,1), new Position(1,1,0)));
+        winningPositions.add(asList(new Position(1,1,0), new Position(1,1,1), new Position(1,1,2)));
+        winningPositions.add(asList(new Position(1,2,2), new Position(1,2,1), new Position(1,2,0)));
+        winningPositions.add(asList(new Position(1,2,0), new Position(1,2,1), new Position(1,2,2)));
+
+        winningPositions.add(asList(new Position(0,0,2), new Position(0,0,1), new Position(0,0,0)));
+        winningPositions.add(asList(new Position(0,0,0), new Position(0,0,1), new Position(0,0,2)));
+        winningPositions.add(asList(new Position(0,1,2), new Position(0,1,1), new Position(0,1,0)));
+        winningPositions.add(asList(new Position(0,1,0), new Position(0,1,1), new Position(0,1,2)));
+        winningPositions.add(asList(new Position(0,2,2), new Position(0,2,1), new Position(0,2,0)));
+        winningPositions.add(asList(new Position(0,2,0), new Position(0,2,1), new Position(0,2,2)));
+
         return winningPositions;
     }
     //returns 1 - computer 2 - player
