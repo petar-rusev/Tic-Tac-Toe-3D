@@ -1,9 +1,9 @@
 package com.tictac.services;
 
-import com.tictac.DTO.CreateMoveResponceDTO;
+import com.tictac.DTO.CreateMoveResponseDTO;
 import com.tictac.DTO.GameDTO;
 import com.tictac.domain.User;
-import com.tictac.repository.GameRepository;
+import lombok.NoArgsConstructor;
 import net.jodah.expiringmap.ExpiringMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +17,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @Transactional
+@NoArgsConstructor
 public class GameService {
-    private final GameRepository gameRepository;
+
     Map<Long, List<Map<String, AI>>> activeGames = ExpiringMap.builder().expirationPolicy(ExpiringMap.ExpirationPolicy.ACCESSED).expiration(450, TimeUnit.HOURS).build();
     @Autowired
     private PlayerService playerService;
-    @Autowired
-    public GameService(GameRepository gameRepository){
-        this.gameRepository = gameRepository;
-
-    }
 
     public List<Map<String, AI>> getPlayerGames(User player){
         return activeGames.get(playerService.getLoggedUser().getId());
@@ -67,7 +63,7 @@ public class GameService {
         return uniqueKey;
     }
 
-    public CreateMoveResponceDTO move(int i, int j, int z,String gameId) {
+    public CreateMoveResponseDTO move(int i, int j, int z,String gameId) {
 
         AI game = null;
         GameMove gameMove = new GameMove(i, j, z);
@@ -79,34 +75,27 @@ public class GameService {
                 game = games.get(v).get(gameId);
             }
         }
+        if(game == null){
+            throw new IllegalArgumentException();
+        }
 
+        game.makeGameMove(gameMove,2);
+        GameMove move = game.makeComputerMove();
+        game.makeGameMove(move, 1);
+        game.resetPriorities();
 
-        if(game.getAvailableGameMoves().size()==0){
-            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
-            moveResponceDTO.setMessage("The game is finished!");
+        if(GameLogic.checkForWinner(game.getGameBoard()) == 1){
+            CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
+            moveResponceDTO.setMessage("Computer wins!");
+            return moveResponceDTO;
+        }else if(GameLogic.checkForWinner(game.getGameBoard()) == 2){
+            CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
+            moveResponceDTO.setMessage("Congratulations you win!");
             return moveResponceDTO;
         }
 
-        if(game==null){
-            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO();
-            moveResponceDTO.setMessage("The game does not exist!");
-            return moveResponceDTO;
-        }
 
-        game.makeGameMove(gameMove, 2);
 
-        game.minimax(0, 1);
-
-        game.makeGameMove(game.computersGameMove, 1);
-
-        game.resetBoard();
-
-        if(GameLogic.hasWinner(game.getGameBoard())){
-            CreateMoveResponceDTO moveResponceDTO = new CreateMoveResponceDTO(game.getGameBoard());
-            moveResponceDTO.setMessage("The game has winner!");
-            return moveResponceDTO;
-        }
-
-        return new CreateMoveResponceDTO(game.getGameBoard());
+        return new CreateMoveResponseDTO(game.getGameBoard());
     }
 }

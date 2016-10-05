@@ -5,11 +5,7 @@ package com.tictac.controllers.RestControllers;
  */
 import com.tictac.DTO.CreateNewGameDTO;
 import com.tictac.DTO.GameDTO;
-import com.tictac.domain.Game;
-import com.tictac.domain.User;
-import com.tictac.enums.GameStatus;
 import com.tictac.services.GameService;
-import com.tictac.services.MoveService;
 import com.tictac.services.PlayerService;
 import com.tictac.services.AI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +22,6 @@ import java.util.Map;
 public class GameRestController {
     @Autowired
     GameService gameService;
-
-    @Autowired
-    MoveService moveService;
 
     @Autowired
     PlayerService playerService;

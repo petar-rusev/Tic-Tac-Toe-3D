@@ -95,6 +95,7 @@ ticTacToe.controller('gameController', function($rootScope, $routeParams, $scope
                 alert(data.message);
 
             }
+            console.log(data);
             drawCube(data.gameBoard);
         })
 
@@ -102,12 +103,14 @@ ticTacToe.controller('gameController', function($rootScope, $routeParams, $scope
             $scope.errorMessage = "Can't send the move"
         });
     };
+
     function drawCube(cubeArray){
         var humanMoves  = 0;
         var computerMoves = 0;
         for(var i=0;i<cubeArray.length;i++){
             for(var j=0;j<cubeArray.length;j++) {
                 for(var k=0;k<cubeArray.length;k++) {
+                    console.log(cubeArray[i][j][k]);
                     if(cubeArray[i][j][k] === 1){
                         jq('#'+i+j+k).css('background-color','rgb(255,0,0)');
                         computerMoves++;
@@ -118,16 +121,6 @@ ticTacToe.controller('gameController', function($rootScope, $routeParams, $scope
                 }
             }
         }
-        if(humanMoves + computerMoves == 27){
-            if(humanMoves > computerMoves){
-                alert("Congratulations you won the game. Go to player panel to start new one.");
-            }
-            else if(humanMoves == computerMoves){
-                alert("Draw game");
-            }
-            else{
-                alert("Computer is the winner!");
-            }
-        }
+
     }
 });

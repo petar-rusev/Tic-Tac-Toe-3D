@@ -1,11 +1,8 @@
 package com.tictac.services;
 
 import com.tictac.DTO.PlayerDTO;
-import com.tictac.domain.Game;
 import com.tictac.domain.User;
-import com.tictac.repository.GameRepository;
 import com.tictac.repository.PlayerRepository;
-import com.tictac.security.ContextUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
