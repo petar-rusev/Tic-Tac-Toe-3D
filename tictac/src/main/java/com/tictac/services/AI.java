@@ -14,7 +14,6 @@ public class AI {
     }
 
 
-
     public GameMove makeComputerMove() {
         if(!updatePrioritiesForWinning()){
             if(!updatePrioritiesForBlockingOpponentFromWinning()){

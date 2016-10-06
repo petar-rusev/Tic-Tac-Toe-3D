@@ -46,16 +46,21 @@ public class GameService {
         Map game =   new HashMap<String,AI>();
 
         List<Map<String, AI>> userGames=  activeGames.get(player.getId());
+        AI newGame = new AI();
+
+        if(gameDTO.getTurn().equals("second")){
+            newGame.getGameBoard()[1][1][1] = 1;
+        }
 
         if(userGames==null){
             userGames = new ArrayList<Map<String, AI>>();
             Map<String, AI> g = new HashMap<String, AI>();
-            g.put(uniqueKey,new AI());
+            g.put(uniqueKey,newGame);
             userGames.add(g);
             activeGames.put(player.getId(), userGames);
         }else{
             Map<String, AI> g = new HashMap<String, AI>();
-            g.put(uniqueKey,new AI());
+            g.put(uniqueKey,newGame);
             userGames.add(g);
         }
 
@@ -79,7 +84,6 @@ public class GameService {
             throw new IllegalArgumentException();
         }
 
-
         if(GameLogic.checkForWinner(game.getGameBoard()) == 0 && !GameLogic.checkForStalemate(game.getGameBoard())){
 
             game.makeGameMove(gameMove,2);
@@ -89,7 +93,7 @@ public class GameService {
             game.resetPriorities();
         }
 
-        if(GameLogic.checkForStalemante(game.getGameBoard())){
+        if(GameLogic.checkForStalemate(game.getGameBoard())){
             CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
             moveResponceDTO.setMessage("The game is Draw!");
             return moveResponceDTO;

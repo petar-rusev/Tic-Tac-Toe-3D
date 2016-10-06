@@ -18,11 +18,31 @@ ticTacToe.controller('newGameController',['$rootScope','$scope','$http','$locati
     function (rootScope,scope,http,location){
 
         rootScope.gameId = null;
+        scope.newGameData = null;
 
+        scope.item = {
+            "turnId":"0",
+            "turnName":"first"
+        }
+        scope.turns = [
+            {
+                "id":"0",
+                "name":"first"
+            },
+            {
+                "id":"1",
+                "name":"second"
+            }
+        ]
         scope.createNewGame = function (){
-            var data = {"piece":"X"};
+            var data = {};
+            for(var i=0;i<scope.turns.length;i++){
+                if(scope.turns[i].id == scope.item.turnId){
+                    data.turn = scope.turns[i].name;
+                }
+            }
             var params = JSON.stringify(data);
-            validateCreateGame();
+
             http.post("/game/create",params,{
                 headers:{
                     'Content-Type' : 'application/json; charset=UTF-8'

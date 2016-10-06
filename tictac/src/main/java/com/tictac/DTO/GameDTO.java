@@ -16,5 +16,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class GameDTO {
     private int id;
-    private String piece;
+    private String turn;
 }

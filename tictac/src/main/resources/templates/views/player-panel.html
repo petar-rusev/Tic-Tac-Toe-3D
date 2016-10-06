@@ -11,6 +11,14 @@
 
             <h2 class="lead">New game</h2>
             <form name="createNewBoard" class="form-horizontal" novalidate ng-submit="createNewGame()">
+                <div class="form-group">
+                    <label for="turn" class="col-md-2 control-label">Choose turn:</label>
+                    <div class="col-md-8">
+                        <select required name="turn" id="turn" ng-model="item.turnId" ng-selected="0" ng-options="turn.id as turn.name for turn in turns">
+                        </select>
+
+                    </div>
+                </div>
                <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-6" style="padding-bottom:50px">
                         <button type="submit" class="btn btn-md btn-primary createGame" ng-disabled="createNewGame.$invalid">
