@@ -148,7 +148,7 @@ public class GameLogic {
         return 0;
     }
 
-    public static boolean checkForStalemante(int[][][] board){
+    public static boolean checkForStalemate(int[][][] board){
         int counter = 0;
 
         for(int i = 0; i < 3;i++){

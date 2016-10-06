@@ -80,7 +80,7 @@ public class GameService {
         }
 
 
-        if(GameLogic.checkForWinner(game.getGameBoard()) == 0 && !GameLogic.checkForStalemante(game.getGameBoard())){
+        if(GameLogic.checkForWinner(game.getGameBoard()) == 0 && !GameLogic.checkForStalemate(game.getGameBoard())){
 
             game.makeGameMove(gameMove,2);
 
