@@ -13,7 +13,6 @@ public class AI {
         return gameBoard;
     }
 
-
     public GameMove makeComputerMove() {
         if(!updatePrioritiesForWinning()){
             if(!updatePrioritiesForBlockingOpponentFromWinning()){

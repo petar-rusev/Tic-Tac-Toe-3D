@@ -24,6 +24,7 @@ public class GameService {
     @Autowired
     private PlayerService playerService;
 
+
     public List<Map<String, AI>> getPlayerGames(User player){
         return activeGames.get(playerService.getLoggedUser().getId());
     }
@@ -84,9 +85,15 @@ public class GameService {
             throw new IllegalArgumentException();
         }
 
+        CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
+
         if(GameLogic.checkForWinner(game.getGameBoard()) == 0 && !GameLogic.checkForStalemate(game.getGameBoard())){
 
             game.makeGameMove(gameMove,2);
+            if(GameLogic.checkForWinner(game.getGameBoard()) == 2){
+                moveResponceDTO.setMessage("Congratulations you win!");
+                return moveResponceDTO;
+            }
 
             GameMove move = game.makeComputerMove();
             game.makeGameMove(move, 1);
@@ -94,19 +101,11 @@ public class GameService {
         }
 
         if(GameLogic.checkForStalemate(game.getGameBoard())){
-            CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
             moveResponceDTO.setMessage("The game is Draw!");
             return moveResponceDTO;
         }
-        if(GameLogic.checkForWinner(game.getGameBoard()) == 2){
-            CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
-            moveResponceDTO.setMessage("Congratulations you win!");
-            return moveResponceDTO;
-        }
-
 
         if(GameLogic.checkForWinner(game.getGameBoard()) == 1){
-            CreateMoveResponseDTO moveResponceDTO = new CreateMoveResponseDTO(game.getGameBoard());
             moveResponceDTO.setMessage("Computer wins!");
             return moveResponceDTO;
         }
